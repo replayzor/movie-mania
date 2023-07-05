@@ -1,13 +1,10 @@
 import Logo from "./Logo";
-import MoviesResults from "./MoviesResults";
-import Search from "./Search";
 
-const Navbar = ({ movies }) => {
+const Navbar = ({ children }) => {
 	return (
 		<nav className="nav-bar">
 			<Logo />
-			<Search />
-			<MoviesResults movies={movies} />
+			{children}
 		</nav>
 	);
 };
