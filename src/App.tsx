@@ -9,7 +9,7 @@ import Main from "./components/Main";
 import MoviesResults from "./components/Navbar/MoviesResults";
 import Search from "./components/Navbar/Search";
 import MoviesList from "./components/Movies/MoviesList";
-import Box from "./components/Box";
+import Box from "./components/BoxContainer";
 import WatchedSummary from "./components/MyMovies/WatchedSummary";
 import WatchedList from "./components/MyMovies/WatchedList";
 
