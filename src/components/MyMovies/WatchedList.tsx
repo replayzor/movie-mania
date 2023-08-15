@@ -1,6 +1,11 @@
+import { Movie } from "../../types/movieTypes";
 import WatchedMovie from "./WatchedMovie";
 
-const WatchedList = ({ watched }) => {
+type WatchedListProps = {
+	watched: Movie[];
+};
+
+const WatchedList = ({ watched }: WatchedListProps) => {
 	return (
 		<ul className="list">
 			{watched.map((movie) => (
