@@ -2,16 +2,12 @@ import { AppBar, Box, Toolbar } from "@mui/material";
 import { ReactNode } from "react";
 
 type NavbarProps = {
-	movies: {
-		imdbID: string;
-		Title: string;
-		Year: string;
-		Poster: string;
-	}[];
+	movies: Movie[];
 	children: ReactNode;
 };
 
 import Logo from "./Logo";
+import { Movie } from "../../types/movieTypes";
 
 const Navbar = ({ children }: NavbarProps) => {
 	return (

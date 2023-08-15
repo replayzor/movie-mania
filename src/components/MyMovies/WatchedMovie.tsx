@@ -1,4 +1,10 @@
-const WatchedMovie = ({ movie }) => {
+import { Movie } from "../../types/movieTypes";
+
+type WatchedMovieProps = {
+	movie: Movie;
+};
+
+const WatchedMovie = ({ movie }: WatchedMovieProps) => {
 	return (
 		<li>
 			<img src={movie.Poster} alt={`${movie.Title} poster`} />
