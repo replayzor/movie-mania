@@ -1,4 +1,12 @@
-const Movie = ({ movie }) => {
+type MovieProps = {
+	movie: {
+		Title: string;
+		Year: string;
+		Poster: string;
+	};
+};
+
+const Movie = ({ movie }: MovieProps) => {
 	return (
 		<li>
 			<img src={movie.Poster} alt={`${movie.Title} poster`} />
