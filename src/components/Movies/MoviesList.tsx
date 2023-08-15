@@ -1,6 +1,15 @@
 import Movie from "./Movie";
 
-const MoviesList = ({ movies }) => {
+type MovieListProps = {
+	movies: {
+		imdbID: string;
+		Title: string;
+		Year: string;
+		Poster: string;
+	}[];
+};
+
+const MoviesList = ({ movies }: MovieListProps) => {
 	return (
 		<ul className="list">
 			{movies?.map((movie) => (
@@ -9,4 +18,5 @@ const MoviesList = ({ movies }) => {
 		</ul>
 	);
 };
+
 export default MoviesList;
