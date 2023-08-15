@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-const Box = ({ children }) => {
+type BoxProps = {
+	children: React.ReactNode;
+};
+
+const Box = ({ children }: BoxProps) => {
 	const [isOpen, setIsOpen] = useState(true);
 
 	return (
