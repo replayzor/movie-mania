@@ -13,20 +13,19 @@ const Navbar = ({ children }: NavbarProps) => {
 	return (
 		<AppBar
 			position="static"
-			sx={{ borderRadius: "1rem", backgroundColor: "#6741d9", padding: "1rem" }}
+			sx={{ borderRadius: "0.9rem", backgroundColor: "var(--color-primary)" }}
 		>
-			<Toolbar>
-				<Box
-					sx={{
-						flexGrow: 1,
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "space-between",
-					}}
-				>
-					<Logo />
-					{children}
-				</Box>
+			<Toolbar
+				sx={{
+					display: "grid",
+					gridTemplateColumns: "1fr 1fr 1fr",
+					alignItems: "center",
+					height: "7.2rem",
+					padding: "0 3.2rem",
+				}}
+			>
+				<Logo />
+				{children}
 			</Toolbar>
 		</AppBar>
 	);

@@ -1,30 +1,24 @@
 import { useState } from "react";
-import { TextField, Typography } from "@mui/material";
+import { Box, TextField, Typography } from "@mui/material";
 
 const Search = () => {
 	const [query, setQuery] = useState<string>("");
 
-	const inputProps = {
-		style: {
-			color: "white",
-			fontSize: "2rem",
-		},
-	};
-
 	return (
-		<>
+		<Box sx={{ display: "flex", justifyContent: "center" }}>
 			<TextField
-				inputProps={inputProps}
+				sx={{ width: "100%", fontSize: "2rem" }}
+				size="medium"
+				autoFocus
 				label={
-					<Typography variant="h6" sx={{ fontSize: "2rem", color: "white" }}>
+					<Typography variant="h6" sx={{ fontSize: "1.5rem", color: "white" }}>
 						Search movies...
 					</Typography>
 				}
 				value={query}
 				onChange={(e) => setQuery(e.target.value)}
-				sx={{ width: "50%" }}
 			/>
-		</>
+		</Box>
 	);
 };
 export default Search;

@@ -1,3 +1,11 @@
+import {
+	ListItem,
+	ListItemAvatar,
+	ListItemText,
+	Avatar,
+	Typography,
+} from "@mui/material";
+
 type MovieProps = {
 	movie: {
 		Title: string;
@@ -8,16 +16,37 @@ type MovieProps = {
 
 const Movie = ({ movie }: MovieProps) => {
 	return (
-		<li>
-			<img src={movie.Poster} alt={`${movie.Title} poster`} />
-			<h3>{movie.Title}</h3>
-			<div>
-				<p>
-					<span>🗓</span>
-					<span>{movie.Year}</span>
-				</p>
-			</div>
-		</li>
+		<ListItem
+			sx={{
+				borderBottom: "1px solid var(--color-background-100)",
+				padding: "1.6rem 3.2rem",
+			}}
+		>
+			<ListItemAvatar>
+				<Avatar
+					sx={{ height: "6rem" }}
+					variant="square"
+					alt={`${movie.Title} poster`}
+					src={movie.Poster}
+				/>
+			</ListItemAvatar>
+			<ListItemText
+				primary={<Typography variant="h4">{movie.Title}</Typography>}
+				secondary={
+					<Typography
+						component="div"
+						variant="h5"
+						sx={{ display: "flex", alignItems: "center", gap: "0.8rem" }}
+					>
+						<Typography component="span" sx={{ fontSize: "1.6rem" }}>
+							🗓
+						</Typography>
+						{` ${movie.Year}`}
+					</Typography>
+				}
+			/>
+		</ListItem>
 	);
 };
+
 export default Movie;

@@ -1,3 +1,5 @@
+import { List } from "@mui/material";
+
 import Movie from "./Movie";
 
 type MovieListProps = {
@@ -11,11 +13,11 @@ type MovieListProps = {
 
 const MoviesList = ({ movies }: MovieListProps) => {
 	return (
-		<ul className="list">
+		<List>
 			{movies?.map((movie) => (
 				<Movie key={movie.imdbID} movie={movie} />
 			))}
-		</ul>
+		</List>
 	);
 };
 

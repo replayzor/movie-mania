@@ -2,11 +2,21 @@ import { Typography, Box } from "@mui/material";
 
 const Logo = () => {
 	return (
-		<Box display="flex" gap="0.8rem" alignItems="center">
-			<Typography variant="h3" component="span" role="img">
+		<Box sx={{ display: "flex", alignItems: "center", gap: "0.8rem" }}>
+			<Typography
+				component="span"
+				role="img"
+				aria-label="Logo"
+				sx={{ fontSize: "3.2rem" }}
+			>
 				🍿
 			</Typography>
-			<Typography variant="h4">Movie Mania</Typography>
+			<Typography
+				variant="h4"
+				sx={{ fontSize: "2.4rem", fontWeight: 600, color: "#fff" }}
+			>
+				Movie Mania
+			</Typography>
 		</Box>
 	);
 };
