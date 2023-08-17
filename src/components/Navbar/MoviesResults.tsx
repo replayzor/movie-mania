@@ -1,15 +1,14 @@
-import { Typography } from "@mui/material";
-import { Movie } from "../../types/movieTypes";
+import { MovieTypes } from "../../types/movieTypes";
 
 type MoviesResultsProps = {
-	movies: Movie[];
+	movies: MovieTypes[];
 };
 
 const MoviesResults = ({ movies }: MoviesResultsProps) => {
 	return (
-		<Typography variant="body1" sx={{ justifySelf: "end", fontSize: "1.8rem" }}>
+		<p className="num-results">
 			Found <strong>{movies.length}</strong> results
-		</Typography>
+		</p>
 	);
 };
 export default MoviesResults;

@@ -1,8 +1,8 @@
-import { Movie } from "../../types/movieTypes";
+import { MovieTypes } from "../../types/movieTypes";
 import WatchedMovie from "./WatchedMovie";
 
 type WatchedListProps = {
-	watched: Movie[];
+	watched: MovieTypes[];
 };
 
 const WatchedList = ({ watched }: WatchedListProps) => {
@@ -14,4 +14,5 @@ const WatchedList = ({ watched }: WatchedListProps) => {
 		</ul>
 	);
 };
+
 export default WatchedList;

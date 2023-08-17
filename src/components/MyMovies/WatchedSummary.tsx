@@ -1,8 +1,8 @@
-import { Movie } from "../../types/movieTypes";
+import { MovieTypes } from "../../types/movieTypes";
 import { filterAndCalculateAverage } from "../../utils/helpers";
 
 type WatchedSummaryProps = {
-	watched: Movie[];
+	watched: MovieTypes[];
 };
 
 const WatchedSummary = ({ watched }: WatchedSummaryProps) => {

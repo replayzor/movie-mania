@@ -1,33 +1,18 @@
-import { AppBar, Box, Toolbar } from "@mui/material";
 import { ReactNode } from "react";
+import Logo from "./Logo";
+import { MovieTypes } from "../../types/movieTypes";
 
 type NavbarProps = {
-	movies: Movie[];
+	movies: MovieTypes[];
 	children: ReactNode;
 };
 
-import Logo from "./Logo";
-import { Movie } from "../../types/movieTypes";
-
 const Navbar = ({ children }: NavbarProps) => {
 	return (
-		<AppBar
-			position="static"
-			sx={{ borderRadius: "0.9rem", backgroundColor: "var(--color-primary)" }}
-		>
-			<Toolbar
-				sx={{
-					display: "grid",
-					gridTemplateColumns: "1fr 1fr 1fr",
-					alignItems: "center",
-					height: "7.2rem",
-					padding: "0 3.2rem",
-				}}
-			>
-				<Logo />
-				{children}
-			</Toolbar>
-		</AppBar>
+		<nav className="nav-bar">
+			<Logo />
+			{children}
+		</nav>
 	);
 };
 export default Navbar;

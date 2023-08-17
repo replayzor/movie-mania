@@ -1,4 +1,4 @@
-export type Movie = {
+export type MovieTypes = {
 	Title: string;
 	Year: string;
 	Poster: string;
