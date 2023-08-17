@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // data
 import { tempMovieData, tempWatchedData } from "./data";
@@ -13,9 +13,33 @@ import Box from "./components/BoxContainer";
 import WatchedSummary from "./components/MyMovies/WatchedSummary";
 import WatchedList from "./components/MyMovies/WatchedList";
 
+import { useQuery } from "react-query";
+import axios from "axios";
+
+const KEY = "5260199b";
+
+const fetchMovies = async () => {
+	const response = await axios(
+		`http://www.omdbapi.com/?apikey=${KEY}&s=snatch`
+	);
+	const data = response.data;
+	return data;
+};
+
 function App() {
-	const [movies, setMovies] = useState(tempMovieData);
+	const { data, isLoading, isError } = useQuery("movies", fetchMovies);
+	// const [movies, setMovies] = useState([]);
 	const [watched, setWatched] = useState(tempWatchedData);
+
+	const movies = data?.Search || [];
+
+	if (isLoading) {
+		return <h1>Loading...</h1>;
+	}
+
+	if (isError) {
+		return <h1>Error loading movies </h1>;
+	}
 
 	return (
 		<>
