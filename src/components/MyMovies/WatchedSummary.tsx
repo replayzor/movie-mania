@@ -6,15 +6,20 @@ type WatchedSummaryProps = {
 };
 
 const WatchedSummary = ({ watched }: WatchedSummaryProps) => {
-	const avgImdbRating = filterAndCalculateAverage(
-		watched.map((movie) => movie.imdbRating)
-	);
-	const avgUserRating = filterAndCalculateAverage(
-		watched.map((movie) => movie.userRating)
-	);
-	const avgRuntime = filterAndCalculateAverage(
-		watched.map((movie) => movie.runtime)
-	);
+	const avgImdbRating =
+		watched.length > 0
+			? filterAndCalculateAverage(watched.map((movie) => movie.imdbRating))
+			: 0;
+
+	const avgUserRating =
+		watched.length > 0
+			? filterAndCalculateAverage(watched.map((movie) => movie.userRating))
+			: 0;
+
+	const avgRuntime =
+		watched.length > 0
+			? filterAndCalculateAverage(watched.map((movie) => movie.runtime))
+			: 0;
 
 	return (
 		<div className="summary">
