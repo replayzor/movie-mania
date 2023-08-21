@@ -1,3 +1,5 @@
+import axios from "axios";
+
 // Calculate the average of an array of numbers
 export function calculateAverage(numbers: number[]): number {
 	const total = numbers.reduce(
@@ -16,3 +18,13 @@ export function filterAndCalculateAverage(
 	);
 	return calculateAverage(validValues);
 }
+
+export const fetchMovies = async (query: string) => {
+	const KEY = "5260199b";
+
+	const response = await axios(
+		`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+	);
+	const data = response.data;
+	return data;
+};
