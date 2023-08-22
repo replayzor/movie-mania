@@ -16,10 +16,12 @@ import WatchedList from "./components/MyMovies/WatchedList";
 import { useQuery } from "react-query";
 
 import { fetchMovies } from "./utils/helpers";
+import { MovieTypes } from "./types/movieTypes";
 
 function App() {
-	const [watched, setWatched] = useState([]);
-	const query = "better+call+saul";
+	const [query, setQuery] = useState<string>("");
+	const [watched, setWatched] = useState<MovieTypes[]>([]);
+	const tempQuery = "better+call+saul";
 	const { data, isLoading, isError } = useQuery("movies", () =>
 		fetchMovies(query)
 	);
@@ -30,7 +32,7 @@ function App() {
 	return (
 		<>
 			<Navbar movies={movies}>
-				<Search />
+				<Search query={query} setQuery={setQuery} />
 				<MoviesResults movies={movies} />
 			</Navbar>
 
