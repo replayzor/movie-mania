@@ -13,7 +13,7 @@ const MoviesList = ({ movies, isLoading, isError }: MovieListProps) => {
 		return <Loading />;
 	}
 
-	if (movies.length === 0) {
+	if (!movies.length) {
 		return (
 			<div className="error-container">
 				<h1>No movies found</h1>
