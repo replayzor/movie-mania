@@ -23,7 +23,7 @@ export const fetchMovies = async (query: string) => {
 	const KEY = "5260199b";
 
 	const response = await axios(
-		`http://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+		`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
 	);
 	const data = response.data;
 	return data;
