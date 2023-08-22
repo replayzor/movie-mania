@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 // data
 import { tempMovieData, tempWatchedData } from "./data";
@@ -14,12 +14,12 @@ import WatchedSummary from "./components/MyMovies/WatchedSummary";
 import WatchedList from "./components/MyMovies/WatchedList";
 
 import { useQuery } from "react-query";
-import Loading from "./components/Loading";
+
 import { fetchMovies } from "./utils/helpers";
 
 function App() {
 	const [watched, setWatched] = useState([]);
-	const query = "rick+and+morty";
+	const query = "better+call+saul";
 	const { data, isLoading, isError } = useQuery("movies", () =>
 		fetchMovies(query)
 	);
