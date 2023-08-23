@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const KEY = "5260199b";
+
 // Calculate the average of an array of numbers
 export function calculateAverage(numbers: number[]): number {
 	const total = numbers.reduce(
@@ -20,10 +22,16 @@ export function filterAndCalculateAverage(
 }
 
 export const fetchMovies = async (query: string) => {
-	const KEY = "5260199b";
-
 	const response = await axios(
 		`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
+	);
+	const data = response.data;
+	return data;
+};
+
+export const fetchMovieDetails = async (id: string) => {
+	const response = await axios(
+		`https://www.omdbapi.com/?apikey=${KEY}&i=${id}`
 	);
 	const data = response.data;
 	return data;
