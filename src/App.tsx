@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // data
-import { tempMovieData, tempWatchedData } from "./data";
+import { fetchMovies } from "./utils/helpers";
 
 // components
 import Navbar from "./components/Navbar/Navbar";
@@ -15,19 +15,30 @@ import WatchedList from "./components/MyMovies/WatchedList";
 
 import { useQuery } from "react-query";
 
-import { fetchMovies } from "./utils/helpers";
 import { MovieTypes } from "./types/movieTypes";
+import MovieDetails from "./components/Movies/MovieDetails";
 
 function App() {
 	const [query, setQuery] = useState<string>("");
 	const [watched, setWatched] = useState<MovieTypes[]>([]);
-	const tempQuery = "better+call+saul";
-	const { data, isLoading, isError } = useQuery("movies", () =>
-		fetchMovies(query)
-	);
-	// const [movies, setMovies] = useState([]);
+	const [selectedId, setSelectedId] = useState<string | null>(null);
+
+	const movieQuery = useQuery({
+		queryKey: ["movies", query],
+		queryFn: () => fetchMovies(query),
+	});
+
+	const { data, isLoading, isError } = movieQuery;
 
 	const movies = data?.Search || [];
+
+	const handleSelectedMovie = (id: string) => {
+		setSelectedId((selectedId) => (selectedId === id ? null : id));
+	};
+
+	const handleCloseMovie = () => {
+		setSelectedId(null);
+	};
 
 	return (
 		<>
@@ -38,15 +49,28 @@ function App() {
 
 			<Main>
 				<Box>
-					<MoviesList isError={isError} isLoading={isLoading} movies={movies} />
+					<MoviesList
+						onSelectMovie={handleSelectedMovie}
+						isError={isError}
+						isLoading={isLoading}
+						movies={movies}
+					/>
 				</Box>
 
 				<Box>
-					<WatchedSummary watched={watched} />
-					<WatchedList watched={watched} />
+					{selectedId && (
+						<MovieDetails onClose={handleCloseMovie} selectedId={selectedId} />
+					)}
+					{!selectedId && (
+						<>
+							<WatchedSummary watched={watched} />
+							<WatchedList watched={watched} />
+						</>
+					)}
 				</Box>
 			</Main>
 		</>
 	);
 }
+
 export default App;
