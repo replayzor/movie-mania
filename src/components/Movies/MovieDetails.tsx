@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { fetchMovieDetails } from "../../utils/helpers";
 import Loading from "../Loading";
+import StarRating from "../StarRating";
 
 type MovieDetailsProps = {
 	selectedId: string;
@@ -45,8 +46,6 @@ function MovieDetails({ selectedId, onClose }: MovieDetailsProps) {
 		Genre: genre,
 	} = data;
 
-	console.log(title, year);
-
 	return (
 		<div className="details">
 			<header>
@@ -66,7 +65,16 @@ function MovieDetails({ selectedId, onClose }: MovieDetailsProps) {
 					</p>
 				</div>
 			</header>
-			{selectedId}
+			<section>
+				<div className="rating">
+					<StarRating maxRating={10} size={24} />
+				</div>
+				<p>
+					<em>{plot}</em>
+				</p>
+				<p>Starring: {actors}</p>
+				<p>Directed by {director}</p>
+			</section>
 		</div>
 	);
 }
