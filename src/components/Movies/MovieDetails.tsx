@@ -2,13 +2,19 @@ import { useQuery } from "react-query";
 import { fetchMovieDetails } from "../../utils/helpers";
 import Loading from "../Loading";
 import StarRating from "../StarRating";
+import { MovieTypes } from "../../types/movieTypes";
 
 type MovieDetailsProps = {
 	selectedId: string;
-	onClose: (id: string | null) => void;
+	onCloseMovie: (id: string | null) => void;
+	onAddWatched: (movie: MovieTypes) => void;
 };
 
-function MovieDetails({ selectedId, onClose }: MovieDetailsProps) {
+function MovieDetails({
+	selectedId,
+	onCloseMovie,
+	onAddWatched,
+}: MovieDetailsProps) {
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ["details", selectedId],
 		queryFn: () => fetchMovieDetails(selectedId),
@@ -46,10 +52,24 @@ function MovieDetails({ selectedId, onClose }: MovieDetailsProps) {
 		Genre: genre,
 	} = data;
 
+	const handleAdd = () => {
+		const newWatchedMovie = {
+			imdbID: selectedId,
+			title,
+			year,
+			poster,
+			imdbRating: Number(imdbRating),
+			runtime: Number(runtime.split(" ").at(0)),
+		};
+
+		onAddWatched(newWatchedMovie);
+		onCloseMovie(null);
+	};
+
 	return (
 		<div className="details">
 			<header>
-				<button className="btn-back" onClick={() => onClose(null)}>
+				<button className="btn-back" onClick={() => onCloseMovie(null)}>
 					&larr;
 				</button>
 				<img src={poster} alt={`Poster of ${title}`} />
@@ -68,6 +88,10 @@ function MovieDetails({ selectedId, onClose }: MovieDetailsProps) {
 			<section>
 				<div className="rating">
 					<StarRating maxRating={10} size={24} />
+
+					<button onClick={handleAdd} className="btn-add">
+						Add to list
+					</button>
 				</div>
 				<p>
 					<em>{plot}</em>
