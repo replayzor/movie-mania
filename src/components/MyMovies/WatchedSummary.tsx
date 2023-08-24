@@ -6,9 +6,11 @@ type WatchedSummaryProps = {
 };
 
 const WatchedSummary = ({ watched }: WatchedSummaryProps) => {
+	const imdbRatings = watched.map((movie) => movie.imdbRating ?? 0);
+	const nonZeroImdbRatings = imdbRatings.filter((rating) => rating !== 0);
 	const avgImdbRating =
-		watched.length > 0
-			? filterAndCalculateAverage(watched.map((movie) => movie.imdbRating))
+		nonZeroImdbRatings.length > 0
+			? filterAndCalculateAverage(nonZeroImdbRatings)
 			: 0;
 
 	const avgUserRating =
