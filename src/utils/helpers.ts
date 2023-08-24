@@ -18,6 +18,11 @@ export function filterAndCalculateAverage(
 	const validValues = values.filter(
 		(value): value is number => typeof value === "number"
 	);
+
+	if (validValues.length === 0) {
+		return 0; // Return 0 when there are no valid values
+	}
+
 	return calculateAverage(validValues);
 }
 
