@@ -1,7 +1,7 @@
 export type MovieTypes = {
-	Title: string;
-	Year: string;
-	Poster: string;
+	title: string;
+	year: string;
+	poster: string;
 	imdbID: string;
 	imdbRating?: number;
 	userRating?: number;
