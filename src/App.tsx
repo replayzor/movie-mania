@@ -19,7 +19,7 @@ import { MovieTypes } from "./types/movieTypes";
 import MovieDetails from "./components/Movies/MovieDetails";
 
 function App() {
-	const [query, setQuery] = useState<string>("");
+	const [query, setQuery] = useState<string>("rick and morty");
 	const [watched, setWatched] = useState<MovieTypes[]>([]);
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -38,6 +38,10 @@ function App() {
 
 	const handleCloseMovie = () => {
 		setSelectedId(null);
+	};
+
+	const handleAddWatched = (movie: MovieTypes) => {
+		setWatched((watched) => [...watched, movie]);
 	};
 
 	return (
@@ -59,7 +63,11 @@ function App() {
 
 				<Box>
 					{selectedId && (
-						<MovieDetails onClose={handleCloseMovie} selectedId={selectedId} />
+						<MovieDetails
+							onAddWatched={handleAddWatched}
+							onCloseMovie={handleCloseMovie}
+							selectedId={selectedId}
+						/>
 					)}
 					{!selectedId && (
 						<>
