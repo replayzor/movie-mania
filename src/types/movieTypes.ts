@@ -4,6 +4,6 @@ export type MovieTypes = {
 	poster: string;
 	imdbID: string;
 	imdbRating?: number;
-	userRating?: number;
+	userRating?: string;
 	runtime?: number;
 };
