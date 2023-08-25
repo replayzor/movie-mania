@@ -16,7 +16,7 @@ export function filterAndCalculateAverage(
 	values: (number | undefined)[]
 ): number {
 	const validValues = values.filter(
-		(value): value is number => typeof value === "number"
+		(value): value is number => typeof value === "number" && !isNaN(value)
 	);
 
 	if (validValues.length === 0) {
