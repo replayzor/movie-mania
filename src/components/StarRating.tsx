@@ -18,6 +18,7 @@ type StarRatingProps = {
 	className?: string;
 	messages?: string[];
 	defaultRating?: number;
+	onSetRating: React.Dispatch<React.SetStateAction<string>>;
 };
 
 function StarRating({
@@ -27,12 +28,14 @@ function StarRating({
 	className = "",
 	messages = [],
 	defaultRating = 0,
+	onSetRating,
 }: StarRatingProps) {
 	const [rating, setRating] = useState(defaultRating);
 	const [tempRating, setTempRating] = useState(0);
 
 	function handleRating(rating: number) {
 		setRating(rating);
+		onSetRating(String(rating));
 	}
 
 	const textStyle = {
