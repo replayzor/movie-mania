@@ -5,6 +5,9 @@ type WatchedMovieProps = {
 };
 
 const WatchedMovie = ({ movie }: WatchedMovieProps) => {
+	const imdbRating =
+		movie.imdbRating !== undefined ? movie.imdbRating.toFixed(1) : "N/A";
+
 	return (
 		<li>
 			<img src={movie.poster} alt={`${movie.title} poster`} />
@@ -12,7 +15,7 @@ const WatchedMovie = ({ movie }: WatchedMovieProps) => {
 			<div>
 				<p>
 					<span>⭐️</span>
-					<span>{movie.imdbRating}</span>
+					<span>{imdbRating !== "NaN" ? imdbRating : "N/A"}</span>
 				</p>
 				<p>
 					<span>🌟</span>
