@@ -3,22 +3,33 @@ import { fetchMovieDetails } from "../../utils/helpers";
 import Loading from "../Loading";
 import StarRating from "../StarRating";
 import { MovieTypes } from "../../types/movieTypes";
+import { useState } from "react";
 
 type MovieDetailsProps = {
 	selectedId: string;
 	onCloseMovie: (id: string | null) => void;
 	onAddWatched: (movie: MovieTypes) => void;
+	watched: MovieTypes[];
 };
 
 function MovieDetails({
 	selectedId,
 	onCloseMovie,
 	onAddWatched,
+	watched,
 }: MovieDetailsProps) {
 	const { data, isLoading, isError } = useQuery({
 		queryKey: ["details", selectedId],
 		queryFn: () => fetchMovieDetails(selectedId),
 	});
+	const [userRating, setUserRating] = useState<string>("");
+
+	const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
+
+	// watchedUserRating const
+	const watchedUserRating = watched.find(
+		(movie) => movie.imdbID === selectedId
+	)?.userRating;
 
 	// Check if loading
 	if (isLoading) {
@@ -59,7 +70,8 @@ function MovieDetails({
 			year,
 			poster,
 			imdbRating: Number(imdbRating),
-			runtime: Number(runtime.split(" ").at(0)),
+			runtime: Number(runtime.split(" ")[0]), // Corrected this line
+			userRating,
 		};
 
 		onAddWatched(newWatchedMovie);
@@ -87,11 +99,23 @@ function MovieDetails({
 			</header>
 			<section>
 				<div className="rating">
-					<StarRating maxRating={10} size={24} />
-
-					<button onClick={handleAdd} className="btn-add">
-						Add to list
-					</button>
+					{!isWatched ? (
+						<>
+							{" "}
+							<StarRating
+								maxRating={10}
+								size={24}
+								onSetRating={(newRating) => setUserRating(String(newRating))}
+							/>
+							{Number(userRating) > 0 && (
+								<button onClick={handleAdd} className="btn-add">
+									Add to list
+								</button>
+							)}{" "}
+						</>
+					) : (
+						<p>You rated this movie {watchedUserRating} out of 10 ⭐</p>
+					)}
 				</div>
 				<p>
 					<em>{plot}</em>
