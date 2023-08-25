@@ -7,7 +7,7 @@ type WatchedSummaryProps = {
 
 const WatchedSummary = ({ watched }: WatchedSummaryProps) => {
 	const imdbRatings = watched.map((movie) => movie.imdbRating ?? 0);
-	const nonZeroImdbRatings = imdbRatings.filter((rating) => rating !== 0);
+	const nonZeroImdbRatings = imdbRatings.filter((rating) => !isNaN(rating));
 	const avgImdbRating =
 		nonZeroImdbRatings.length > 0
 			? filterAndCalculateAverage(nonZeroImdbRatings)
@@ -15,12 +15,14 @@ const WatchedSummary = ({ watched }: WatchedSummaryProps) => {
 
 	const avgUserRating =
 		watched.length > 0
-			? filterAndCalculateAverage(watched.map((movie) => movie.userRating))
+			? filterAndCalculateAverage(
+					watched.map((movie) => Number(movie.userRating))
+			  )
 			: 0;
 
 	const avgRuntime =
 		watched.length > 0
-			? filterAndCalculateAverage(watched.map((movie) => movie.runtime))
+			? filterAndCalculateAverage(watched.map((movie) => Number(movie.runtime)))
 			: 0;
 
 	return (
@@ -33,18 +35,21 @@ const WatchedSummary = ({ watched }: WatchedSummaryProps) => {
 				</p>
 				<p>
 					<span>⭐️</span>
-					<span>{avgImdbRating}</span>
+					<span>{isNaN(avgImdbRating) ? "N/A" : avgImdbRating.toFixed(1)}</span>
 				</p>
 				<p>
 					<span>🌟</span>
-					<span>{avgUserRating}</span>
+					<span>{isNaN(avgUserRating) ? "N/A" : avgUserRating.toFixed(1)}</span>
 				</p>
 				<p>
 					<span>⏳</span>
-					<span>{avgRuntime} min</span>
+					<span>
+						{isNaN(avgRuntime) ? "N/A" : `${avgRuntime.toFixed(1)} min`}
+					</span>
 				</p>
 			</div>
 		</div>
 	);
 };
+
 export default WatchedSummary;
