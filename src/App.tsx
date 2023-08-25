@@ -67,6 +67,7 @@ function App() {
 							onAddWatched={handleAddWatched}
 							onCloseMovie={handleCloseMovie}
 							selectedId={selectedId}
+							watched={watched}
 						/>
 					)}
 					{!selectedId && (
