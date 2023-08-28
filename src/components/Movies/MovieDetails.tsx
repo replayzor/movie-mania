@@ -34,6 +34,20 @@ function MovieDetails({
 		};
 	}, [data]);
 
+	useEffect(() => {
+		const callback = (e: KeyboardEvent) => {
+			if (e.code === "Escape") {
+				onCloseMovie(null);
+			}
+		};
+
+		document.addEventListener("keydown", callback);
+
+		return () => {
+			document.removeEventListener("keydown", callback);
+		};
+	}, []);
+
 	const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
 
 	const watchedUserRating = watched.find(
