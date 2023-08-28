@@ -2,9 +2,10 @@ import { MovieTypes } from "../../types/movieTypes";
 
 type WatchedMovieProps = {
 	movie: MovieTypes;
+	onDeleteWatched: (id: string) => void;
 };
 
-const WatchedMovie = ({ movie }: WatchedMovieProps) => {
+const WatchedMovie = ({ movie, onDeleteWatched }: WatchedMovieProps) => {
 	const imdbRating =
 		movie.imdbRating !== undefined ? movie.imdbRating.toFixed(1) : "N/A";
 
@@ -23,8 +24,14 @@ const WatchedMovie = ({ movie }: WatchedMovieProps) => {
 				</p>
 				<p>
 					<span>⏳</span>
-					<span>{movie.runtime} min</span>
+					<span>{isNaN(movie.runtime!) ? "N/A" : `${movie.runtime} min`}</span>
 				</p>
+				<button
+					className="btn-delete"
+					onClick={() => onDeleteWatched(movie.imdbID)}
+				>
+					X
+				</button>
 			</div>
 		</li>
 	);
