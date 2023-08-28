@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // data
 import { fetchMovies } from "./utils/helpers";
@@ -19,7 +19,7 @@ import { MovieTypes } from "./types/movieTypes";
 import MovieDetails from "./components/Movies/MovieDetails";
 
 function App() {
-	const [query, setQuery] = useState<string>("rick and morty");
+	const [query, setQuery] = useState<string>("");
 	const [watched, setWatched] = useState<MovieTypes[]>([]);
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 
@@ -48,6 +48,10 @@ function App() {
 		const newWatched = watched.filter((movie) => movie.imdbID !== id);
 		setWatched(newWatched);
 	};
+
+	useEffect(() => {
+		handleCloseMovie();
+	}, [query]);
 
 	return (
 		<>
