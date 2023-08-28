@@ -3,7 +3,7 @@ import { fetchMovieDetails } from "../../utils/helpers";
 import Loading from "../Loading";
 import StarRating from "../StarRating";
 import { MovieTypes } from "../../types/movieTypes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type MovieDetailsProps = {
 	selectedId: string;
@@ -24,19 +24,26 @@ function MovieDetails({
 	});
 	const [userRating, setUserRating] = useState<string>("");
 
+	useEffect(() => {
+		if (data) {
+			document.title = `Movie: ${data.Title}`;
+		}
+
+		return () => {
+			document.title = "Movie Mania";
+		};
+	}, [data]);
+
 	const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
 
-	// watchedUserRating const
 	const watchedUserRating = watched.find(
 		(movie) => movie.imdbID === selectedId
 	)?.userRating;
 
-	// Check if loading
 	if (isLoading) {
 		return <Loading />;
 	}
 
-	// Handle error state
 	if (isError) {
 		return (
 			<div className="error-container">
@@ -70,7 +77,7 @@ function MovieDetails({
 			year,
 			poster,
 			imdbRating: Number(imdbRating),
-			runtime: Number(runtime.split(" ")[0]), // Corrected this line
+			runtime: Number(runtime.split(" ")[0]),
 			userRating,
 		};
 
@@ -101,7 +108,6 @@ function MovieDetails({
 				<div className="rating">
 					{!isWatched ? (
 						<>
-							{" "}
 							<StarRating
 								maxRating={10}
 								size={24}
@@ -111,7 +117,7 @@ function MovieDetails({
 								<button onClick={handleAdd} className="btn-add">
 									Add to list
 								</button>
-							)}{" "}
+							)}
 						</>
 					) : (
 						<p>You rated this movie {watchedUserRating} out of 10 ⭐</p>
