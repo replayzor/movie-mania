@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 
-// data
+// utils
 import { fetchMovies } from "./utils/helpers";
+import { MovieTypes } from "./types/movieTypes";
 
 // components
 import Navbar from "./components/Navbar/Navbar";
@@ -12,15 +14,13 @@ import MoviesList from "./components/Movies/MoviesList";
 import Box from "./components/BoxContainer";
 import WatchedSummary from "./components/MyMovies/WatchedSummary";
 import WatchedList from "./components/MyMovies/WatchedList";
-
-import { useQuery } from "react-query";
-
-import { MovieTypes } from "./types/movieTypes";
 import MovieDetails from "./components/Movies/MovieDetails";
+
+const getWatchedMovies = JSON.parse(localStorage.getItem("watched") || "[]");
 
 function App() {
 	const [query, setQuery] = useState<string>("");
-	const [watched, setWatched] = useState<MovieTypes[]>([]);
+	const [watched, setWatched] = useState<MovieTypes[]>(getWatchedMovies);
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 
 	const movieQuery = useQuery({
@@ -33,15 +33,17 @@ function App() {
 	const movies = data?.Search || [];
 
 	const handleSelectedMovie = (id: string) => {
-		setSelectedId((selectedId) => (selectedId === id ? null : id));
+		setSelectedId((newSelectedId) => (newSelectedId === id ? null : id));
 	};
 
-	const handleCloseMovie = () => {
+	const handleCloseSelectedMovie = () => {
 		setSelectedId(null);
 	};
 
 	const handleAddWatched = (movie: MovieTypes) => {
 		setWatched((watched) => [...watched, movie]);
+
+		setQuery("");
 	};
 
 	const handleDeleteWatched = (id: string) => {
@@ -50,9 +52,12 @@ function App() {
 	};
 
 	useEffect(() => {
-		handleCloseMovie();
-	}, [query]);
+		localStorage.setItem("watched", JSON.stringify(watched));
+	}, [watched]);
 
+	useEffect(() => {
+		handleCloseSelectedMovie();
+	}, [query]);
 	return (
 		<>
 			<Navbar movies={movies}>
@@ -74,7 +79,7 @@ function App() {
 					{selectedId && (
 						<MovieDetails
 							onAddWatched={handleAddWatched}
-							onCloseMovie={handleCloseMovie}
+							onCloseMovie={handleCloseSelectedMovie}
 							selectedId={selectedId}
 							watched={watched}
 						/>
