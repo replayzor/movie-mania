@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "react-query";
 
 // utils
-import { fetchMovies } from "./utils/helpers";
 import { MovieTypes } from "./types/movieTypes";
+
+// hooks
+import { useMovies } from "./hooks/useMovies";
 
 // components
 import Navbar from "./components/Navbar/Navbar";
@@ -23,14 +24,7 @@ function App() {
 	const [watched, setWatched] = useState<MovieTypes[]>(getWatchedMovies);
 	const [selectedId, setSelectedId] = useState<string | null>(null);
 
-	const movieQuery = useQuery({
-		queryKey: ["movies", query],
-		queryFn: () => fetchMovies(query),
-	});
-
-	const { data, isLoading, isError } = movieQuery;
-
-	const movies = data?.Search || [];
+	const { movies, isLoading, isError } = useMovies(query);
 
 	const handleSelectedMovie = (id: string) => {
 		setSelectedId((newSelectedId) => (newSelectedId === id ? null : id));
@@ -58,6 +52,7 @@ function App() {
 	useEffect(() => {
 		handleCloseSelectedMovie();
 	}, [query]);
+
 	return (
 		<>
 			<Navbar movies={movies}>
