@@ -26,14 +26,6 @@ export function filterAndCalculateAverage(
 	return calculateAverage(validValues);
 }
 
-export const fetchMovies = async (query: string) => {
-	const response = await axios(
-		`https://www.omdbapi.com/?apikey=${KEY}&s=${query}`
-	);
-	const data = response.data;
-	return data;
-};
-
 export const fetchMovieDetails = async (id: string) => {
 	const response = await axios(
 		`https://www.omdbapi.com/?apikey=${KEY}&i=${id}`
