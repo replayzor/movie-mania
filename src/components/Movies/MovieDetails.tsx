@@ -3,7 +3,7 @@ import { fetchMovieDetails } from "../../utils/helpers";
 import Loading from "../Loading";
 import StarRating from "../StarRating";
 import { MovieTypes } from "../../types/movieTypes";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 type MovieDetailsProps = {
 	selectedId: string;
@@ -23,6 +23,11 @@ function MovieDetails({
 		queryFn: () => fetchMovieDetails(selectedId),
 	});
 	const [userRating, setUserRating] = useState<string>("");
+	const countRef = useRef<number>(0);
+
+	useEffect(() => {
+		if (userRating) countRef.current++;
+	}, [userRating]);
 
 	useEffect(() => {
 		if (data) {
@@ -93,6 +98,7 @@ function MovieDetails({
 			imdbRating: Number(imdbRating),
 			runtime: Number(runtime.split(" ")[0]),
 			userRating,
+			countRatingDecisions: countRef.current,
 		};
 
 		onAddWatched(newWatchedMovie);
